@@ -1,0 +1,57 @@
+---
+base_url: https://api.projets.weborama.com
+version: 0.10
+format:
+  - json
+  - xml
+  - yml
+methods:
+###################################################################
+#  media_plan functions 
+###################################################################
+  get_media_plan:
+    path: /media_plan/:id.:format
+    method: GET
+    required_params:
+      - account_id
+      - id
+  media_plan_list:
+    path: /media_plan/list/:format
+    method: GET
+    required_params:
+      - account_id
+    optional_params:
+      - status
+  update_media_plan:
+    path: /media_plan/:id.:format
+    method: PUT
+    required_params:
+      - account_id
+      - id
+    optional_params:
+      - label
+  create_media_plan:
+    path: /media_plan/:format
+    method: POST
+    required_params:
+      - account_id
+      - label
+    optional_params:
+  archive_media_plan:
+    path: /media_plan/archive/:id.:format
+    method: PUT
+    required_params:
+      - account_id
+      - id
+  unarchive_media_plan:
+    path: /media_plan/unarchive/:id.:format
+    method: PUT
+    required_params:
+      - account_id
+      - id
+  delete_media_plan:
+    path: /media_plan/:id.:format
+    method: DELETE
+    required_params:
+      - account_id
+      - id
