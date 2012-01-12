@@ -51,6 +51,7 @@ class RESTHttpClient
     private $_port = null;
     private $_user = null;
     private $_baseurl = null;
+    private $_cookies = array();
     private $_pass = null;
     private $_protocol = null;
     private $_status = null;
@@ -78,6 +79,12 @@ class RESTHttpClient
     public function getContent()
     {
         return $this->_content;
+    }
+    
+    public function addCookie($cookie)
+    {
+        array_push($this->_cookies, $cookie);
+        return $this->_cookies;
     }
     /**
      * Factory of the class. Lazy connect
@@ -256,6 +263,14 @@ class RESTHttpClient
         return $this;
     }
     
+    public function addHeader($header, $value)
+    {
+      $header_string = "{$header}:{$value};";
+      array_push($this->_headers, $header_string);
+      
+      return $this->_headers;
+    }
+    
     public function getHeaders()
     {
         return $this->_headers;
@@ -312,9 +327,7 @@ class RESTHttpClient
                 break;
         }
         
-        
-        $cookies = "webo_auth=829534123717445103516298627284937538;";
-        
+        $cookies = join('', $this->_cookies);
         
         curl_setopt($s, CURLOPT_COOKIE, $cookies);
         curl_setopt($s, CURLOPT_RETURNTRANSFER, true);

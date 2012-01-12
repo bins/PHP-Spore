@@ -2,8 +2,14 @@
 
 require_once '../lib/Spore.php';
 
-$spore = new Spore('../../authentication/spore.yaml');
+$spore = new Spore('../../../authentication/spore.yaml');
 
-$result = $spore->get_user(array('cookie_name' => "webo_auth", 'cookie_value' => "829534123717445103516298627284937538", 'domain' => '.localhost'));
+$spore->setCookie("webo_auth", "634322571564233712030311395365302871");
 
-print_r($result->body);
+$result = $spore->get_user();
+
+print_r(result);
+
+$result2 = $spore->create_user(array('user_email' => "voicibin@gmail.com"));
+
+print_r($result2);
