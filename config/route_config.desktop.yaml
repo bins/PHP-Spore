@@ -11890,8 +11890,8 @@ methods:
     required_params:
       - id
   get_authentication_token:
-    path: /authentication/authentication_users/token/.:format
-    method: GET
+    path: /authentication/authentication_users/token/:format
+    method: POST
     required_params:
       - email
       - password

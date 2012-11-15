@@ -270,11 +270,36 @@ class RESTHttpClient
       
       return $this->_headers;
     }
+
+    public function createOrUpdateHeader($header, $value)
+    {
+      $old_headers = $this->_headers;
+      $headers = array();
+      $header_string = "{$header}:{$value}";
+      $pattern = '/^'.$header.'/';
+      $is_defined_header = 0;
+      foreach ($old_headers as $old_header_value){
+          if (preg_match ($pattern, $old_header_value)){
+                  array_push($headers, $header_string);
+                  $is_defined_header = 1;
+          }
+          else{
+              array_push($headers, $old_header_value);
+            }
+      }
+      if ($is_defined_header == 0){
+          array_push($headers, $header_string);
+      }
+      $this->_headers = $headers;
+      return $this->_headers;
+    }
+
     
     public function getHeaders()
     {
         return $this->_headers;
     }
+
 
     /**
      * Builds absolute url 

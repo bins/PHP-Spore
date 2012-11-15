@@ -358,8 +358,7 @@ class Spore {
 	 */
 	private function _setContentType($content_type) {
 		$client = RESTHttpClient :: getHttpClient();
-		//$client = RESTHttpClient::connect("");
-		$client->addHeader('Content-Type', $content_type);
+		$client->createOrUpdateHeader('Content-Type', $content_type);
 	}
 
 	/**

@@ -81,12 +81,12 @@ class Spore_Middleware_Weborama_Authentication {
         // set signature string
         $this->setSignatureString($spore);
         $this->_signatureSha1 = sha1($this->_signatureString);
-
+        
         // modify the request headers
         $client = RESTHttpClient :: getHttpClient();
-        $client->addHeader('X-Weborama-AppKey', $this->_applicationKey);
-        $client->addHeader('X-Weborama-Signature', $this->_signatureSha1);
-        $client->addHeader('X-Weborama-User-Email', $this->_userEmail);
+        $client->createOrUpdateHeader('X-Weborama-AppKey', $this->_applicationKey);
+        $client->createOrUpdateHeader('X-Weborama-Signature', $this->_signatureSha1);
+        $client->createOrUpdateHeader('X-Weborama-User-Email', $this->_userEmail);
     }
 
 
