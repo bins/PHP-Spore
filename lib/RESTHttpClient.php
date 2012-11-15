@@ -265,7 +265,7 @@ class RESTHttpClient
     
     public function addHeader($header, $value)
     {
-      $header_string = "{$header}:{$value};";
+      $header_string = "{$header}:{$value}";
       array_push($this->_headers, $header_string);
       
       return $this->_headers;
