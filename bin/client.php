@@ -3,13 +3,10 @@
 require_once '../lib/Spore.php';
 require_once '../lib/SporeMiddleware.php';
 
-
-//$spore = new Spore('../config/spore.0.10.yaml');
-$spore = new Spore('../config/route_config.desktop.yaml');
+$client = new Spore('../config/route_config.desktop.yaml');
 
 // authentication
-
-$spore->enable(
+$client->enable(
         'Spore_Middleware_Weborama_Authentication',
         array(
             'application_key'  => '1234',
@@ -20,7 +17,14 @@ $spore->enable(
 //headers_list 
 
 //***********************************
-//$result = $spore->get_media_plan(array('account_id' => 261612, 'id' => 1, 'format' => 'json'));
-$result = $spore->search_account(array( 'format' => 'json'));
+//$result = $client->get_media_plan(array('account_id' => 261612, 'id' => 1, 'format' => 'json'));
+//$result = $client->search_account(array( 'format' => 'json'));
+//    $result = $client->get_available_metrics_from_dimensions(
+//        array( 'format' => 'json', 'account_id' => 2, 'dimensions' => json_encode( array ("project", "campaign", "channel", "insertion", "adnetwork", "adspace", "creative", "conversionpage")))
+//);
+    $result = $client->search_conversion_page(
+        array( 'format' => 'json', 'account_id' => 2, 'conditions' => json_encode( array ('status' => 'active')))
+);
+
 print_r ($result);
 
