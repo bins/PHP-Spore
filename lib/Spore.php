@@ -17,6 +17,7 @@ class Spore {
 	protected $_host;
 	protected $_base_url;
 	protected $_request_path;
+	protected $_request_url_path;
 	protected $_request_params;
 	protected $_request_cookies;
 	protected $_request_raw_params;
@@ -228,6 +229,7 @@ class Spore {
 	protected function _prepareParams($method, $params) {
 		// get path
 		$this->_request_path = $this->_base_url . $this->_specs['methods'][$method]['path'];
+		$this->_request_url_path = $this->_specs['methods'][$method]['path'];
 
 		// add required params into the path
 		$required_params = array ();
@@ -262,6 +264,7 @@ class Spore {
 
 		if (strstr($this->_request_path, ":$param")) {
 			$this->_request_path = str_replace(":$param", $value, $this->_request_path);
+			$this->_request_url_path = str_replace(":$param", $value, $this->_request_url_path);
 		} else {
 			$this->_request_params[$param] = $value;
 		}
@@ -355,8 +358,7 @@ class Spore {
 	 */
 	private function _setContentType($content_type) {
 		$client = RESTHttpClient :: getHttpClient();
-		//$client = RESTHttpClient::connect("");
-		$client->addHeader('Content-Type', $content_type);
+		$client->createOrUpdateHeader('Content-Type', $content_type);
 	}
 
 	/**
@@ -395,6 +397,9 @@ class Spore {
 
 	public function getRequestPath() {
 		return $this->_request_path;
+	}
+	public function getRequestUrlPath() {
+		return $this->_request_url_path;
 	}
 
 	public function getRequestParams() {
